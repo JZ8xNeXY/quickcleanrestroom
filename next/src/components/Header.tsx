@@ -22,14 +22,8 @@ const Header = () => {
           }}
         >
           <Box>
-            <Link href="/" passHref>
-              <Image
-                src="/headerlogo.png"
-                width={160}
-                height={40}
-                alt="logo"
-                priority
-              />
+            <Link href="/">
+              <Image src="/headerlogo.png" width={160} height={40} alt="logo" />
             </Link>
           </Box>
           <Box>
