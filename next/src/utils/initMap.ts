@@ -1,3 +1,4 @@
+//マップを表示する
 export const initMap = async () => {
   const mapElement = document.getElementById('map')
 
@@ -8,6 +9,8 @@ export const initMap = async () => {
       maxZoom: 25,
       center: { lat: 35.681236, lng: 139.767125 },
     })
+    console.log(map)
+    return map
   } else {
     console.error('Google Maps API is not available')
   }

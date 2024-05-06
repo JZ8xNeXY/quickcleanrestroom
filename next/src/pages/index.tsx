@@ -1,30 +1,22 @@
 import { Box, Container } from '@mui/material'
-import camelcaseKeys from 'camelcase-keys'
 import type { NextPage } from 'next'
-import { useEffect } from 'react'
-import useSWR from 'swr'
-import { fetcher } from '@/utils'
+import { useEffect, useState } from 'react'
+import AddMarkers from '@/components/AddMarkers'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 
-type PostProps = {
-  id: number
-  name: string
-  address: string
-  content: string
-  latitude: number
-  longitude: number
-  createdAt: string
-}
-
 const Index: NextPage = () => {
+  const [map, setMap] = useState<google.maps.Map | null>(null)
+
   useEffect(() => {
     loadGoogleMapsAPI()
+    console.log(map)
   }, [])
 
   return (
     <>
       <Container maxWidth="xl">
         <Box id="map" style={{ height: '500px', width: '100%' }}></Box>
+        <AddMarkers />
       </Container>
     </>
   )

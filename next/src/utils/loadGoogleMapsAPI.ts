@@ -34,9 +34,9 @@ export const loadGoogleMapsAPI = () => {
     if (!d[l]) {
       d[l] = (f, ...n) => u().then(() => d[l](f, ...n))
       // APIのロードを試みる
-      u().then(() => {
+      return u().then(() => {
         //マップを表示する
-        initMap()
+        return initMap()
       })
     }
   })({
