@@ -1,3 +1,5 @@
+import { initMap } from './initMap'
+
 export const loadGoogleMapsAPI = () => {
   ;((g) => {
     let h,
@@ -31,25 +33,11 @@ export const loadGoogleMapsAPI = () => {
         }))
     if (!d[l]) {
       d[l] = (f, ...n) => u().then(() => d[l](f, ...n))
-
       // APIのロードを試みる
-      u()
-        .then(() => {
-          //ここは別のファイルへ移行させる予定
-          const mapElement = document.getElementById('map')
-
-          if (mapElement) {
-            const map = new google.maps.Map(mapElement, {
-              zoom: 16,
-              mapId: 'DEMO_MAP_ID',
-              maxZoom: 25,
-              center: { lat: 35.681236, lng: 139.767125 },
-            })
-          }
-        })
-        .catch((error) => {
-          console.error('Google Maps APIのロードに失敗しました:', error)
-        })
+      u().then(() => {
+        //マップを表示する
+        initMap()
+      })
     }
   })({
     key: 'AIzaSyBn3XhYjntZhpSHJJHtjc0AMsjXuhY-cPQ',
