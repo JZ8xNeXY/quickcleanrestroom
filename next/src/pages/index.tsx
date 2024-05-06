@@ -8,15 +8,14 @@ const Index: NextPage = () => {
   const [map, setMap] = useState<google.maps.Map | null>(null)
 
   useEffect(() => {
-    loadGoogleMapsAPI()
-    console.log(map)
-  }, [])
+    loadGoogleMapsAPI(map, setMap)
+  }, [map])
 
   return (
     <>
       <Container maxWidth="xl">
         <Box id="map" style={{ height: '500px', width: '100%' }}></Box>
-        <AddMarkers />
+        <AddMarkers map={map} />
       </Container>
     </>
   )

@@ -14,7 +14,7 @@ type PostProps = {
   createdAt: string
 }
 
-const AddMarkers: NextPage = (props: any) => {
+const AddMarkers: NextPage = (props) => {
   const url = 'http://localhost:3000/api/v1/posts'
   const { data, error } = useSWR(url, fetcher)
 
@@ -23,6 +23,7 @@ const AddMarkers: NextPage = (props: any) => {
 
   const posts: PostProps[] = camelcaseKeys(data)
 
+  console.log(props.map)
   return (
     <>
       {posts.map((post) => (
