@@ -11,9 +11,7 @@ const Index: NextPage = () => {
   return (
     <>
       <Container maxWidth="xl">
-        <div id="map" style={{ height: '900px', width: '100%' }}>
-          GoogleMaps
-        </div>
+        <Box id="map" style={{ height: '800px', width: '100%' }}></Box>
       </Container>
     </>
   )
