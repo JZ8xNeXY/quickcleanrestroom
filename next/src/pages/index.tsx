@@ -8,8 +8,8 @@ const Index: NextPage = () => {
   const [map, setMap] = useState<google.maps.Map | null>(null)
 
   useEffect(() => {
-    loadGoogleMapsAPI(map, setMap)
-  }, [map])
+    loadGoogleMapsAPI(setMap)
+  }, [])
 
   return (
     <>

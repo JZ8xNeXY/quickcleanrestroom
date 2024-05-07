@@ -1,5 +1,5 @@
 // //マップを表示する
-export const initMap = async (map, setMap) => {
+export const initMap = async (setMap) => {
   const mapElement = document.getElementById('map')
 
   if (mapElement) {

@@ -1,6 +1,6 @@
 import { initMap } from './initMap'
 
-export const loadGoogleMapsAPI = (map, setMap) => {
+export const loadGoogleMapsAPI = (setMap) => {
   ;((g) => {
     let h,
       a,
@@ -36,11 +36,11 @@ export const loadGoogleMapsAPI = (map, setMap) => {
       // APIのロードを試みる
       return u().then(() => {
         //マップを表示する
-        initMap(map, setMap)
+        initMap(setMap)
       })
     }
   })({
-    key: 'AIzaSyBn3XhYjntZhpSHJJHtjc0AMsjXuhY-cPQ',
+    key: process.env.GOOGLE_MAPS_API_KEY,
     v: 'beta',
   })
 }

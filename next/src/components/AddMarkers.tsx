@@ -14,7 +14,8 @@ type PostProps = {
   createdAt: string
 }
 
-const AddMarkers: NextPage = (props) => {
+const AddMarkers: NextPage = (props: google.maps.Map | null) => {
+  //Railsからデータを読み込み indexアクション
   const url = 'http://localhost:3000/api/v1/posts'
   const { data, error } = useSWR(url, fetcher)
 
@@ -23,7 +24,6 @@ const AddMarkers: NextPage = (props) => {
 
   const posts: PostProps[] = camelcaseKeys(data)
 
-  console.log(props.map)
   return (
     <>
       {posts.map((post) => (
