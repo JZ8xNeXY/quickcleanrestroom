@@ -20,5 +20,4 @@ class PostSerializer < ActiveModel::Serializer
   def longitude
     object.facility.longitude
   end
-
 end

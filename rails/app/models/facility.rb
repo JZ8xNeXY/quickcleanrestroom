@@ -1,5 +1,5 @@
 class Facility < ApplicationRecord
-  has_one :post
+  has_one :post, dependent: :destroy
   has_one_attached :image
 
   validates :name, presence: true, unless: :was_attached?

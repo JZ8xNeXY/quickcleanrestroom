@@ -49,6 +49,9 @@ const Footer = () => {
             </MuiLink>
           </Box>
         </Box>
+        <Box sx={{ textAlign: 'center', mt: 2 }}>
+          Copyright © Qucik Clean Restroom Map All rights reserved.
+        </Box>
       </Container>
     </AppBar>
   )
