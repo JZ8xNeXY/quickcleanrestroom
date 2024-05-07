@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import useSWR from 'swr'
 import { fetcher } from '@/utils'
 
-type PostProps = {
+interface PostProps {
   id: number
   name: string
   address: string
@@ -14,15 +14,20 @@ type PostProps = {
   longitude: number
   createdAt: string
 }
-const AddMarkers: NextPage<{ map: google.maps.Map | null }> = ({ map }) => {
+
+interface AddMarkersProps {
+  map: google.maps.Map | null
+}
+
+const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
   //Railsからデータを読み込み indexアクション
   const url = 'http://localhost:3000/api/v1/posts'
   const { data, error } = useSWR(url, fetcher, { revalidateOnFocus: false })
-  const posts: PostProps[] = data ? camelcaseKeys(data) : []
 
   useEffect(() => {
     const addMarkers = async () => {
       if (map && data) {
+        const posts: PostProps[] = data ? camelcaseKeys(data) : []
         const { AdvancedMarkerElement } =
           await google.maps.importLibrary('marker')
 
@@ -34,6 +39,7 @@ const AddMarkers: NextPage<{ map: google.maps.Map | null }> = ({ map }) => {
           restroomImg.width = 75
           restroomImg.height = 75
 
+          //マーカーの表示
           new AdvancedMarkerElement({
             map,
             position: { lat: post.latitude, lng: post.longitude },
