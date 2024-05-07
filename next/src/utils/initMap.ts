@@ -9,6 +9,7 @@ export const initMap = async (setMap) => {
       maxZoom: 25,
       center: { lat: 35.681236, lng: 139.767125 },
     })
+
     setMap(map)
   } else {
     console.error('Google Maps API is not available')
