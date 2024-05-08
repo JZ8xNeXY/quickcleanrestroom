@@ -1,5 +1,7 @@
 // //マップを表示する
-export const initMap = async (setMap) => {
+export const initMap = async (
+  setMap: React.Dispatch<React.SetStateAction<google.maps.Map | null>>,
+) => {
   const mapElement = document.getElementById('map')
 
   if (mapElement) {

@@ -1,7 +1,14 @@
 import { initMap } from './initMap'
 
-export const loadGoogleMapsAPI = (setMap) => {
-  ;((g) => {
+interface GoogleMapsConfig {
+  key: string | undefined
+  v: string
+}
+
+export const loadGoogleMapsAPI = (
+  setMap: React.Dispatch<React.SetStateAction<google.maps.Map | null>>,
+) => {
+  ;((g: GoogleMapsConfig) => {
     let h, a, k
     const p = 'The Google Maps JavaScript API'
     const c = 'google'

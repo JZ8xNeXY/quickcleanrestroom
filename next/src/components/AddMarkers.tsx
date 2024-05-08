@@ -28,8 +28,9 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
     const addMarkers = async () => {
       if (map && data) {
         const posts: PostProps[] = data ? camelcaseKeys(data) : []
-        const { AdvancedMarkerElement } =
-          await google.maps.importLibrary('marker')
+        const { AdvancedMarkerElement } = (await google.maps.importLibrary(
+          'marker',
+        )) as google.maps.MarkerLibrary
 
         posts.forEach((post) => {
           //画像の読み込み
