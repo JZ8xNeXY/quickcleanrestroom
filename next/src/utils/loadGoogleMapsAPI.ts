@@ -9,7 +9,7 @@ export const loadGoogleMapsAPI = (
   setMap: React.Dispatch<React.SetStateAction<google.maps.Map | null>>,
 ) => {
   ;((g: GoogleMapsConfig) => {
-    let h, a, k
+    let h: Promise<unknown>, a, k
     const p = 'The Google Maps JavaScript API'
     const c = 'google'
     const l = 'importLibrary'
