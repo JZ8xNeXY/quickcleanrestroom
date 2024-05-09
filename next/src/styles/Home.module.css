@@ -227,3 +227,13 @@
     transform: rotate(0deg);
   }
 }
+
+/* mapの現在地アイコンのバウンド */
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.bounce {
+  animation: bounce 2.0s infinite;
+}

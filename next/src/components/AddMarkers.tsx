@@ -78,6 +78,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
 
   return (
     <div>
+      {/* modalの表示 */}
       <PostModal
         open={open}
         onClose={handleClose}
