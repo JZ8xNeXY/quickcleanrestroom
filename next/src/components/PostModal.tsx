@@ -16,7 +16,7 @@ const style = {
   top: '46.6%',
   left: '19%',
   transform: 'translate(-50%, -50%)',
-  width: '20%',
+  width: '22%',
   height: '80%',
   bgcolor: '#F9F9F9',
   boxShadow: 24,
@@ -118,7 +118,23 @@ const PostModal: React.FC<PostModalProps> = ({
           }}
         ></Button>
       </Box>
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+        <Button
+          sx={{
+            height: '40px',
+            color: '#FFFFFF',
+            fontWeight: 'bold',
+            bgcolor: '#4CAF50',
+            pt: 2,
+            pb: 2,
+            mt: 2,
+          }}
+          onClick={onClose}
+        >
+          編集する
+        </Button>
+      </Box>
+      <Box sx={{ mt: 0 }}>
         <Typography id="modal-description" variant="h6" fontWeight="bold">
           住所
         </Typography>
@@ -143,6 +159,22 @@ const PostModal: React.FC<PostModalProps> = ({
         <Typography id="modal-description" sx={{ ml: 2 }}>
           平均4.7 ⭐️⭐️⭐️⭐️⭐️ (3件の評価をみる)
         </Typography>
+      </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          sx={{
+            height: '40px',
+            color: '#FFFFFF',
+            fontWeight: 'bold',
+            bgcolor: '#4CAF50',
+            pt: 2,
+            pb: 2,
+            mt: 2,
+          }}
+          onClick={onClose}
+        >
+          評価する
+        </Button>
       </Box>
     </Box>
   </Modal>
