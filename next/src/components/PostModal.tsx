@@ -16,7 +16,7 @@ const style = {
   top: '46.6%',
   left: '19%',
   transform: 'translate(-50%, -50%)',
-  width: '22%',
+  width: '30%',
   height: '80%',
   bgcolor: '#F9F9F9',
   boxShadow: 24,
@@ -73,9 +73,9 @@ const PostModal: React.FC<PostModalProps> = ({
         <Image
           src="/point2.png"
           alt="restroom"
-          layout="responsive"
-          width={100}
-          height={100}
+          width={300}
+          height={300}
+          priority
         />
       </Box>
       <Box

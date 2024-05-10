@@ -23,7 +23,13 @@ const Header = () => {
         >
           <Box>
             <Link href="/">
-              <Image src="/headerlogo.png" width={160} height={40} alt="logo" />
+              <Image
+                src="/headerlogo.png"
+                width={160}
+                height={40}
+                priority
+                alt="logo"
+              />
             </Link>
           </Box>
           <Box>

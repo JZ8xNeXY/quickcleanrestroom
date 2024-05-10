@@ -15,10 +15,12 @@ const Index: NextPage = () => {
   return (
     <>
       <Container maxWidth="xl">
-        <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
+        <Box id="map" style={{ height: '80vh', width: '100%' }}>
+          {' '}
+          <GeoLocation map={map} />
+        </Box>
         <Box id="infoPanel"></Box>
         <AddMarkers map={map} />
-        <GeoLocation map={map} />
       </Container>
     </>
   )

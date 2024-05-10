@@ -46,7 +46,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
         posts.forEach((post) => {
           //画像の読み込み
           const restroomImg = document.createElement('img')
-          restroomImg.src = './restroom.png'
+          restroomImg.src = '/restroom.png'
           restroomImg.alt = post.name
           restroomImg.width = 75
           restroomImg.height = 75

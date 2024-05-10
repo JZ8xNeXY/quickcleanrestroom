@@ -11,9 +11,19 @@ const GeoLocation: NextPage<AddMarkersProps> = ({ map }) => {
 
   useEffect(() => {
     if (map && locationButtonRef.current) {
-      map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-        locationButtonRef.current,
-      )
+      const controlPosition = google.maps.ControlPosition.TOP_CENTER
+      map.controls[controlPosition].push(locationButtonRef.current)
+
+      return () => {
+        const controls = map.controls[controlPosition]
+        for (let i = 0; i < controls.getLength(); i++) {
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          if (controls.getAt(i) === locationButtonRef.current) {
+            controls.removeAt(i)
+            break
+          }
+        }
+      }
     }
   }, [map])
 
@@ -59,6 +69,7 @@ const GeoLocation: NextPage<AddMarkersProps> = ({ map }) => {
             userPositionImg.height = 75
             // バウンドが機能しない
             userPositionImg.classList.add('bounce')
+            console.log(userPositionImg)
 
             const { AdvancedMarkerElement } = (await google.maps.importLibrary(
               'marker',
