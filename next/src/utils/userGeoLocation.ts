@@ -22,21 +22,18 @@ export const userGeoLocation = ({
         userPosImg.src = '/userposition.png'
         userPosImg.width = 75
         userPosImg.height = 75
-        // FIX バウンドが機能しない
         userPosImg.classList.add('bounce')
 
         const { AdvancedMarkerElement } = (await google.maps.importLibrary(
           'marker',
         )) as google.maps.MarkerLibrary
 
-        const pos = new AdvancedMarkerElement({
+        new AdvancedMarkerElement({
           map,
           position: UserPos,
           title: 'Your Location',
           content: userPosImg,
         })
-
-        console.log(pos)
 
         setCurrentUserPos(UserPos)
 
@@ -53,21 +50,18 @@ export const userGeoLocation = ({
           userPosImg.src = '/userposition.png'
           userPosImg.width = 75
           userPosImg.height = 75
-          // FIX バウンドが機能しない
           userPosImg.classList.add('bounce')
 
           const { AdvancedMarkerElement } = (await google.maps.importLibrary(
             'marker',
           )) as google.maps.MarkerLibrary
 
-          const pos = new AdvancedMarkerElement({
+          new AdvancedMarkerElement({
             map,
             position: tokyoStationPos,
             title: 'Your Location',
             content: userPosImg,
           })
-
-          console.log(pos)
 
           setCurrentUserPos(tokyoStationPos)
 

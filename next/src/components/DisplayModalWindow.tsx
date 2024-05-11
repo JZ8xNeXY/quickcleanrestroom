@@ -85,7 +85,6 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
       <Box
         sx={{
           width: '100%',
-          maxWidth: '100%',
           height: 'auto',
           '& img': {
             width: '100%',
