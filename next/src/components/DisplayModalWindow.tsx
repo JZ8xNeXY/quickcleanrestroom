@@ -1,8 +1,9 @@
+import CloseIcon from '@mui/icons-material/Close'
 import { Box, Button, Modal, Typography } from '@mui/material'
 import Image from 'next/image'
 import React from 'react'
 
-interface PostModalProps {
+interface DisplayModalWindowProps {
   open: boolean
   onClose: () => void
   name: string
@@ -26,35 +27,32 @@ const modalStyle = {
 const changeFontSize = (name: string) => {
   if (name.length >= 15) {
     return {
-      fontSize: '12px',
+      fontSize: '24px',
       fontWeight: 'bold',
       margin: '0 auto',
       textAlign: 'center',
       verticalAlign: 'middle',
-      maxWidth: '150px',
     }
   } else if (name.length >= 10) {
     return {
-      fontSize: '16px',
+      fontSize: '26px',
       fontWeight: 'bold',
       margin: '0 auto',
       textAlign: 'center',
       verticalAlign: 'middle',
-      maxWidth: '150px',
     }
   } else {
     return {
-      fontSize: '18px',
+      fontSize: '28px',
       fontWeight: 'bold',
       margin: '0 auto',
       textAlign: 'center',
       verticalAlign: 'middle',
-      maxWidth: ' 150px',
     }
   }
 }
 
-const PostModal: React.FC<PostModalProps> = ({
+const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
   open,
   onClose,
   name,
@@ -68,6 +66,20 @@ const PostModal: React.FC<PostModalProps> = ({
     aria-describedby="modal-description"
   >
     <Box sx={modalStyle}>
+      <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+        <Button
+          sx={{
+            height: '20px',
+            color: '#000000',
+            fontWeight: 'bold',
+
+            m: 1,
+          }}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </Button>
+      </Box>
       <Box sx={{ width: '100%' }}>
         <Image
           src="/point2.png"
@@ -84,20 +96,6 @@ const PostModal: React.FC<PostModalProps> = ({
           alignItems: 'center',
         }}
       >
-        <Button
-          sx={{
-            height: '40px',
-            color: '#000000',
-            fontWeight: 'bold',
-            bgcolor: '#FFFFFF',
-            pt: 4,
-            pb: 4,
-            m: 1,
-          }}
-          onClick={onClose}
-        >
-          ←閉じる
-        </Button>
         <Typography
           id="modal-description"
           sx={{
@@ -106,16 +104,6 @@ const PostModal: React.FC<PostModalProps> = ({
         >
           {name}
         </Typography>
-        <Button
-          sx={{
-            backgroundImage: 'url("/route.png")',
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            width: 'auto',
-            height: '60px',
-            m: 1,
-          }}
-        ></Button>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'right' }}>
         <Button
@@ -179,4 +167,4 @@ const PostModal: React.FC<PostModalProps> = ({
   </Modal>
 )
 
-export default PostModal
+export default DisplayModalWindow
