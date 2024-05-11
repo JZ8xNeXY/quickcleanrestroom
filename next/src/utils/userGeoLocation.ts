@@ -1,23 +1,27 @@
 interface UserGeoLocationProps {
   map: google.maps.Map | null
-  setUserPos: (pos: { lat: number; lng: number }) => void
+  setCurrentUserPos: (pos: { lat: number; lng: number }) => void
 }
 
-export const userGeoLocation = ({ map, setUserPos }: UserGeoLocationProps) => {
+export const userGeoLocation = ({
+  map,
+  setCurrentUserPos,
+}: UserGeoLocationProps) => {
+  //GPS機能で現在地を取得できた場合
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
-        const currentUserPos = {
+        const UserPos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
 
-        const userPositionImg = document.createElement('img')
-        userPositionImg.src = '/userposition.png'
-        userPositionImg.width = 75
-        userPositionImg.height = 75
-        // バウンドが機能しない
-        userPositionImg.classList.add('bounce')
+        const userPosImg = document.createElement('img')
+        userPosImg.src = '/userposition.png'
+        userPosImg.width = 75
+        userPosImg.height = 75
+        // FIX バウンドが機能しない
+        userPosImg.classList.add('bounce')
 
         const { AdvancedMarkerElement } = (await google.maps.importLibrary(
           'marker',
@@ -25,29 +29,28 @@ export const userGeoLocation = ({ map, setUserPos }: UserGeoLocationProps) => {
 
         new AdvancedMarkerElement({
           map,
-          position: currentUserPos,
+          position: UserPos,
           title: 'Your Location',
-          content: userPositionImg,
+          content: userPosImg,
         })
 
-        setUserPos(currentUserPos)
+        setCurrentUserPos(UserPos)
 
         if (map) {
-          map.setCenter(currentUserPos)
+          map.setCenter(UserPos)
         }
       },
       () => {
-        // 現在地を取得できない場合、東京駅の位置を使用
+        // GPS機能で現在地を取得できない場合、東京駅の位置を使用
         const handleLocationError = async (
           tokyoStationPos = { lat: 35.681236, lng: 139.767125 },
         ) => {
-          const userPositionImg = document.createElement('img')
-          userPositionImg.src = '/userposition.png'
-          userPositionImg.width = 75
-          userPositionImg.height = 75
-          // バウンドが機能しない
-          userPositionImg.classList.add('bounce')
-          console.log(userPositionImg)
+          const userPosImg = document.createElement('img')
+          userPosImg.src = '/userposition.png'
+          userPosImg.width = 75
+          userPosImg.height = 75
+          // FIX バウンドが機能しない
+          userPosImg.classList.add('bounce')
 
           const { AdvancedMarkerElement } = (await google.maps.importLibrary(
             'marker',
@@ -57,10 +60,10 @@ export const userGeoLocation = ({ map, setUserPos }: UserGeoLocationProps) => {
             map,
             position: tokyoStationPos,
             title: 'Your Location',
-            content: userPositionImg,
+            content: userPosImg,
           })
 
-          setUserPos(tokyoStationPos)
+          setCurrentUserPos(tokyoStationPos)
 
           if (map) {
             map.setCenter(tokyoStationPos)

@@ -4,8 +4,8 @@ import Image from 'next/image'
 import React from 'react'
 
 interface DisplayModalWindowProps {
-  open: boolean
-  onClose: () => void
+  openModalWindow: boolean
+  closeModalWindow: () => void
   name: string
   address: string
   content: string
@@ -13,14 +13,20 @@ interface DisplayModalWindowProps {
 
 const modalStyle = {
   position: 'absolute' as const,
-  top: '46.6%',
-  left: '19%',
+  top: '47%',
+  left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: '30%',
+  width: {
+    xs: '80%',
+    sm: '65%',
+    md: '40%',
+    lg: '30%',
+    xl: '25%',
+  },
   height: '80%',
   bgcolor: '#F9F9F9',
   boxShadow: 24,
-  p: 4,
+  p: 3,
   overflow: 'auto',
 }
 
@@ -53,15 +59,15 @@ const changeFontSize = (name: string) => {
 }
 
 const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
-  open,
-  onClose,
+  openModalWindow,
+  closeModalWindow,
   name,
   address,
   content,
 }) => (
   <Modal
-    open={open}
-    onClose={onClose}
+    open={openModalWindow}
+    onClose={closeModalWindow}
     aria-labelledby="modal-title"
     aria-describedby="modal-description"
   >
@@ -69,23 +75,29 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
       <Box sx={{ display: 'flex', justifyContent: 'right' }}>
         <Button
           sx={{
-            height: '20px',
             color: '#000000',
-            fontWeight: 'bold',
-
-            m: 1,
           }}
-          onClick={onClose}
+          onClick={closeModalWindow}
         >
           <CloseIcon />
         </Button>
       </Box>
-      <Box sx={{ width: '100%' }}>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: '100%',
+          height: 'auto',
+          '& img': {
+            width: '100%',
+            height: 'auto',
+          },
+        }}
+      >
         <Image
-          src="/point2.png"
+          src="/point1.png"
           alt="restroom"
-          width={300}
-          height={300}
+          width={200}
+          height={200}
           priority
         />
       </Box>
@@ -97,7 +109,6 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
         }}
       >
         <Typography
-          id="modal-description"
           sx={{
             ...changeFontSize(name),
           }}
@@ -116,34 +127,28 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             pb: 2,
             mt: 2,
           }}
-          onClick={onClose}
+          onClick={closeModalWindow}
         >
           編集する
         </Button>
       </Box>
       <Box sx={{ mt: 0 }}>
-        <Typography id="modal-description" variant="h6" fontWeight="bold">
+        <Typography variant="h6" fontWeight="bold">
           住所
         </Typography>
-        <Typography id="modal-description" sx={{ ml: 2 }}>
-          {address}
-        </Typography>
-        <Typography id="modal-description" variant="h6" fontWeight="bold">
+        <Typography sx={{ ml: 2 }}>{address}</Typography>
+        <Typography variant="h6" fontWeight="bold">
           コメント
         </Typography>
-        <Typography id="modal-description" sx={{ ml: 2 }}>
-          {content}
-        </Typography>
-        <Typography id="modal-description" variant="h6" fontWeight="bold">
+        <Typography sx={{ ml: 2 }}>{content}</Typography>
+        <Typography variant="h6" fontWeight="bold">
           設備情報
         </Typography>
-        <Typography id="modal-description" sx={{ ml: 2 }}>
-          パウダーコーナー
-        </Typography>
-        <Typography id="modal-description" variant="h6" fontWeight="bold">
+        <Typography sx={{ ml: 2 }}>パウダーコーナー</Typography>
+        <Typography variant="h6" fontWeight="bold">
           レビュー
         </Typography>
-        <Typography id="modal-description" sx={{ ml: 2 }}>
+        <Typography sx={{ ml: 2 }}>
           平均4.7 ⭐️⭐️⭐️⭐️⭐️ (3件の評価をみる)
         </Typography>
       </Box>
@@ -158,7 +163,7 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
             pb: 2,
             mt: 2,
           }}
-          onClick={onClose}
+          onClick={closeModalWindow}
         >
           評価する
         </Button>

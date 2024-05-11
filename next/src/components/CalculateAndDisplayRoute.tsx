@@ -52,7 +52,7 @@ const CalculateAndDisplayRoute: NextPage<CalculateAndDisplayRouteProps> = (
             const googleMapsLink = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originParam)}&destination=${encodeURIComponent(destinationParam)}&travelmode=walking`
 
             const durationInfoWindow = new google.maps.InfoWindow({
-              content: `<div>推定徒歩時間: ${durationText}<br><a href="${googleMapsLink}" target="_blank">ルートを案内する</a></div>`,
+              content: `<div>推定徒歩時間: ${durationText}<br><a href="${googleMapsLink}" target="_blank">GoogleMapアプリで案内する</a></div>`,
               position: midLatLng,
             })
             durationInfoWindow.open(props.map)

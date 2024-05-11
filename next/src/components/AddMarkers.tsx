@@ -45,7 +45,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
 
   const showGeolocationButton = useRef<HTMLButtonElement>(null)
 
-  const handleFindLocation = () => {
+  const FindCurrentLocation = () => {
     if (map) {
       userGeoLocation({ map, setCurrentUserPos })
     }
@@ -114,8 +114,8 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
   return (
     <>
       <DisplayModalWindow
-        open={openModalWindow}
-        onClose={closeModalWindow}
+        openModalWindow={openModalWindow}
+        closeModalWindow={closeModalWindow}
         name={selectedRestroomName}
         address={selectedRestroomAddress}
         content={selectedRestroomContent}
@@ -129,7 +129,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           ref={showGeolocationButton}
-          onClick={handleFindLocation}
+          onClick={FindCurrentLocation}
           sx={{
             height: '60px',
             fontSize: '16px',
@@ -141,6 +141,9 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
             pl: 4,
             pr: 4,
             mt: 2,
+            ':hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.80)',
+            },
           }}
         >
           現在地を表示する

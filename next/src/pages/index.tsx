@@ -2,7 +2,6 @@ import { Box, Container } from '@mui/material'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import AddMarkers from '@/components/AddMarkers'
-// import GeoLocation from '@/components/geoLocation'
 import { loadGoogleMapsAPI } from '@/utils/loadGoogleMapsAPI'
 
 const Index: NextPage = () => {
@@ -15,12 +14,9 @@ const Index: NextPage = () => {
   return (
     <>
       <Container maxWidth="xl">
-        <Box id="map" style={{ height: '80vh', width: '100%' }}>
-          {' '}
-          {/* <GeoLocation map={map} /> */}
-        </Box>
-        <Box id="infoPanel"></Box>
         <AddMarkers map={map} />
+        <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
+        <Box id="infoPanel"></Box>
       </Container>
     </>
   )
