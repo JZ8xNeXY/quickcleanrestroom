@@ -1,11 +1,12 @@
-import { Box } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import camelcaseKeys from 'camelcase-keys'
 import type { NextPage } from 'next'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import useSWR from 'swr'
 import CalculateAndDisplayRoute from './CalculateAndDisplayRoute'
 import PostModal from './PostModal'
 import { fetcher } from '@/utils'
+import { userGeoLocation } from '@/utils/userGeoLocation'
 
 interface PostProps {
   id: number
@@ -22,7 +23,6 @@ interface AddMarkersProps {
 }
 
 const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
-  //Railsからデータを読み込み indexアクション
   const url = 'http://localhost:3000/api/v1/posts'
   const { data, error } = useSWR(url, fetcher, { revalidateOnFocus: false })
 
@@ -34,6 +34,19 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
   const [selectedPostContent, setSelectedPostContent] = useState<string>('')
   const [selectedPostLatitude, setSelectedPostLatitude] = useState<number>()
   const [selectedPostLongitude, setSelectedPostLongitude] = useState<number>()
+
+  const locationButtonRef = useRef<HTMLButtonElement>(null)
+
+  const [userPos, setUserPos] = useState<{
+    lat: number | undefined
+    lng: number | undefined
+  }>()
+
+  const handleFindLocation = () => {
+    if (map) {
+      userGeoLocation({ map, setUserPos })
+    }
+  }
 
   useEffect(() => {
     const addMarkers = async () => {
@@ -75,14 +88,33 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
     }
 
     addMarkers()
+
+    if (map && locationButtonRef.current) {
+      const controlPosition = google.maps.ControlPosition.TOP_CENTER
+      map.controls[controlPosition].push(locationButtonRef.current)
+
+      return () => {
+        const controls = map.controls[controlPosition]
+        for (let i = 0; i < controls.getLength(); i++) {
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+          if (controls.getAt(i) === locationButtonRef.current) {
+            controls.removeAt(i)
+            break
+          }
+        }
+      }
+    }
   }, [map, data])
+
+  useEffect(() => {
+    console.log(userPos)
+  }, [userPos])
 
   if (error) return <Box>An error has occurred.</Box>
   if (!data) return <Box>Loading...</Box>
 
   return (
-    <div>
-      {/* modalの表示 */}
+    <>
       <PostModal
         open={open}
         onClose={handleClose}
@@ -91,10 +123,33 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
         content={selectedPostContent}
       />
       <CalculateAndDisplayRoute
+        userPos={userPos}
         latitude={selectedPostLatitude}
         longitude={selectedPostLongitude}
+        map={map}
       />
-    </div>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button
+          ref={locationButtonRef}
+          //現在地を取得
+          onClick={handleFindLocation}
+          sx={{
+            height: '60px',
+            fontSize: '16px',
+            color: '#FFFFFF',
+            fontWeight: 'bold',
+            bgcolor: '#4CAF50',
+            pt: 2,
+            pb: 2,
+            pl: 4,
+            pr: 4,
+            mt: 2,
+          }}
+        >
+          現在地を表示する
+        </Button>
+      </Box>
+    </>
   )
 }
 

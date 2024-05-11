@@ -1,11 +1,13 @@
 interface UserGeoLocationProps {
   map: google.maps.Map | null
+  setUserPos: (pos: { lat: number; lng: number }) => void
 }
-export const userGeoLocation = ({ map }: UserGeoLocationProps) => {
+
+export const userGeoLocation = ({ map, setUserPos }: UserGeoLocationProps) => {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       async (position) => {
-        const userPos = {
+        const currentUserPos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         }
@@ -23,15 +25,15 @@ export const userGeoLocation = ({ map }: UserGeoLocationProps) => {
 
         new AdvancedMarkerElement({
           map,
-          position: userPos,
+          position: currentUserPos,
           title: 'Your Location',
           content: userPositionImg,
         })
 
-        console.log(userPos)
+        setUserPos(currentUserPos)
 
         if (map) {
-          map.setCenter(userPos)
+          map.setCenter(currentUserPos)
         }
       },
       () => {
@@ -39,8 +41,6 @@ export const userGeoLocation = ({ map }: UserGeoLocationProps) => {
         const handleLocationError = async (
           tokyoStationPos = { lat: 35.681236, lng: 139.767125 },
         ) => {
-          console.log(tokyoStationPos)
-
           const userPositionImg = document.createElement('img')
           userPositionImg.src = '/userposition.png'
           userPositionImg.width = 75
@@ -59,6 +59,8 @@ export const userGeoLocation = ({ map }: UserGeoLocationProps) => {
             title: 'Your Location',
             content: userPositionImg,
           })
+
+          setUserPos(tokyoStationPos)
 
           if (map) {
             map.setCenter(tokyoStationPos)
