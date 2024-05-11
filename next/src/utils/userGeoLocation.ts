@@ -1,3 +1,5 @@
+import '../styles/Home.module.css'
+
 interface UserGeoLocationProps {
   map: google.maps.Map | null
   setCurrentUserPos: (pos: { lat: number; lng: number }) => void
@@ -27,12 +29,14 @@ export const userGeoLocation = ({
           'marker',
         )) as google.maps.MarkerLibrary
 
-        new AdvancedMarkerElement({
+        const pos = new AdvancedMarkerElement({
           map,
           position: UserPos,
           title: 'Your Location',
           content: userPosImg,
         })
+
+        console.log(pos)
 
         setCurrentUserPos(UserPos)
 
@@ -56,12 +60,14 @@ export const userGeoLocation = ({
             'marker',
           )) as google.maps.MarkerLibrary
 
-          new AdvancedMarkerElement({
+          const pos = new AdvancedMarkerElement({
             map,
             position: tokyoStationPos,
             title: 'Your Location',
             content: userPosImg,
           })
+
+          console.log(pos)
 
           setCurrentUserPos(tokyoStationPos)
 
