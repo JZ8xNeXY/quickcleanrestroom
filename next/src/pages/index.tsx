@@ -14,9 +14,9 @@ const Index: NextPage = () => {
   return (
     <>
       <Container maxWidth="xl">
+        <AddMarkers map={map} />
         <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
         <Box id="infoPanel"></Box>
-        <AddMarkers map={map} />
       </Container>
     </>
   )
