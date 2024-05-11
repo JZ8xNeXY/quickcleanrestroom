@@ -3,6 +3,7 @@ import camelcaseKeys from 'camelcase-keys'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import useSWR from 'swr'
+import CalculateAndDisplayRoute from './CalculateAndDisplayRoute'
 import PostModal from './PostModal'
 import { fetcher } from '@/utils'
 
@@ -28,12 +29,11 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
   const [open, setOpen] = useState(false)
   const handleClose = () => setOpen(false)
 
-  //名称
   const [selectedPostName, setSelectedPostName] = useState<string>('')
-  //住所
   const [selectedPostAddress, setSelectedPostAddress] = useState<string>('')
-  //内容
   const [selectedPostContent, setSelectedPostContent] = useState<string>('')
+  const [selectedPostLatitude, setSelectedPostLatitude] = useState<number>()
+  const [selectedPostLongitude, setSelectedPostLongitude] = useState<number>()
 
   useEffect(() => {
     const addMarkers = async () => {
@@ -43,6 +43,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
           'marker',
         )) as google.maps.MarkerLibrary
 
+        //マーカーの作成
         posts.forEach((post) => {
           //画像の読み込み
           const restroomImg = document.createElement('img')
@@ -65,6 +66,9 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
             setSelectedPostName(post.name)
             setSelectedPostAddress(post.address)
             setSelectedPostContent(post.content)
+            //クリックしたら該当箇所の緯度経度情報に更新
+            setSelectedPostLatitude(post.latitude)
+            setSelectedPostLongitude(post.longitude)
           })
         })
       }
@@ -85,6 +89,10 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
         name={selectedPostName}
         address={selectedPostAddress}
         content={selectedPostContent}
+      />
+      <CalculateAndDisplayRoute
+        latitude={selectedPostLatitude}
+        longitude={selectedPostLongitude}
       />
     </div>
   )

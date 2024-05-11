@@ -1,6 +1,7 @@
 import { Box, Button } from '@mui/material'
 import type { NextPage } from 'next'
 import { useEffect, useRef } from 'react'
+import { userGeoLocation } from '@/utils/userGeoLocation'
 
 interface AddMarkersProps {
   map: google.maps.Map | null
@@ -27,76 +28,12 @@ const GeoLocation: NextPage<AddMarkersProps> = ({ map }) => {
     }
   }, [map])
 
-  const userGeoLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        async (position) => {
-          const userPos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          }
-
-          const userPositionImg = document.createElement('img')
-          userPositionImg.src = '/userposition.png'
-          userPositionImg.width = 75
-          userPositionImg.height = 75
-          // バウンドが機能しない
-          userPositionImg.classList.add('bounce')
-
-          const { AdvancedMarkerElement } = (await google.maps.importLibrary(
-            'marker',
-          )) as google.maps.MarkerLibrary
-
-          new AdvancedMarkerElement({
-            map,
-            position: userPos,
-            title: 'Your Location',
-            content: userPositionImg,
-          })
-
-          map.setCenter(userPos)
-        },
-        () => {
-          // 現在地を取得できない場合、東京駅の位置を使用
-          const handleLocationError = async (
-            tokyoStationPos = { lat: 35.681236, lng: 139.767125 },
-          ) => {
-            console.log(tokyoStationPos)
-
-            const userPositionImg = document.createElement('img')
-            userPositionImg.src = '/userposition.png'
-            userPositionImg.width = 75
-            userPositionImg.height = 75
-            // バウンドが機能しない
-            userPositionImg.classList.add('bounce')
-            console.log(userPositionImg)
-
-            const { AdvancedMarkerElement } = (await google.maps.importLibrary(
-              'marker',
-            )) as google.maps.MarkerLibrary
-
-            new AdvancedMarkerElement({
-              map,
-              position: tokyoStationPos,
-              title: 'Your Location',
-              content: userPositionImg,
-            })
-            map.setCenter(tokyoStationPos)
-          }
-
-          handleLocationError()
-        },
-      )
-    } else {
-      alert('Geolocation is not supported by this browser.')
-    }
-  }
-
   return (
     <>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           ref={locationButtonRef}
+          onClick={() => userGeoLocation({ map })}
           sx={{
             height: '60px',
             fontSize: '16px',
@@ -109,7 +46,6 @@ const GeoLocation: NextPage<AddMarkersProps> = ({ map }) => {
             pr: 4,
             mt: 2,
           }}
-          onClick={userGeoLocation}
         >
           最寄りのトイレを探す
         </Button>

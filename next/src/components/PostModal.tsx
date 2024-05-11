@@ -10,8 +10,7 @@ interface PostModalProps {
   content: string
 }
 
-//modalのスタイル
-const style = {
+const modalStyle = {
   position: 'absolute' as const,
   top: '46.6%',
   left: '19%',
@@ -24,7 +23,7 @@ const style = {
   overflow: 'auto',
 }
 
-const getStyle = (name: string) => {
+const changeFontSize = (name: string) => {
   if (name.length >= 15) {
     return {
       fontSize: '12px',
@@ -68,7 +67,7 @@ const PostModal: React.FC<PostModalProps> = ({
     aria-labelledby="modal-title"
     aria-describedby="modal-description"
   >
-    <Box sx={style}>
+    <Box sx={modalStyle}>
       <Box sx={{ width: '100%' }}>
         <Image
           src="/point2.png"
@@ -102,7 +101,7 @@ const PostModal: React.FC<PostModalProps> = ({
         <Typography
           id="modal-description"
           sx={{
-            ...getStyle(name),
+            ...changeFontSize(name),
           }}
         >
           {name}
