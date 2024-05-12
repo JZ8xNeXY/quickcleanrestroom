@@ -1,9 +1,8 @@
-import { AppBar, Box, Button, Container } from '@mui/material'
+import { AppBar, Box, Container, Link } from '@mui/material'
 import Image from 'next/image'
-import Link from 'next/link'
+import NextLink from 'next/link'
 
 const headerButtonStyle = {
-  textTransform: 'none',
   fontSize: {
     xs: 14,
     sm: 14,
@@ -11,9 +10,6 @@ const headerButtonStyle = {
     lg: 18,
     xl: 18,
   },
-  borderRadius: 2,
-  boxShadow: 'none',
-  border: 'none',
   ml: {
     xs: 1,
     sm: 2,
@@ -72,15 +68,35 @@ const Header = () => {
             </Link>
           </Box>
           <Box>
-            <Button color="secondary" variant="outlined" sx={headerButtonStyle}>
+            <Link
+              component={NextLink}
+              href="#"
+              color="inherit"
+              sx={headerButtonStyle}
+              underline="none"
+            >
               紹介
-            </Button>
-            <Button color="secondary" variant="outlined" sx={headerButtonStyle}>
+            </Link>
+
+            <Link
+              component={NextLink}
+              href="#"
+              color="inherit"
+              sx={headerButtonStyle}
+              underline="none"
+            >
               新規登録
-            </Button>
-            <Button color="secondary" variant="outlined" sx={headerButtonStyle}>
+            </Link>
+
+            <Link
+              component={NextLink}
+              href="#"
+              color="inherit"
+              sx={headerButtonStyle}
+              underline="none"
+            >
               ログイン
-            </Button>
+            </Link>
           </Box>
         </Box>
       </Container>

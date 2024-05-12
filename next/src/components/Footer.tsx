@@ -1,4 +1,4 @@
-import { AppBar, Box, Container, Link as MuiLink } from '@mui/material'
+import { AppBar, Box, Container, Link } from '@mui/material'
 import NextLink from 'next/link'
 
 const Footer = () => {
@@ -21,32 +21,17 @@ const Footer = () => {
           }}
         >
           <Box>
-            <MuiLink
-              component={NextLink}
-              href="#"
-              color="inherit"
-              sx={{ ml: 4 }}
-            >
+            <Link component={NextLink} href="#" color="inherit" sx={{ ml: 4 }}>
               利用規約
-            </MuiLink>
+            </Link>
 
-            <MuiLink
-              component={NextLink}
-              href="#"
-              color="inherit"
-              sx={{ ml: 4 }}
-            >
+            <Link component={NextLink} href="#" color="inherit" sx={{ ml: 4 }}>
               プライバシーポリシー
-            </MuiLink>
+            </Link>
 
-            <MuiLink
-              component={NextLink}
-              href="#"
-              color="inherit"
-              sx={{ ml: 4 }}
-            >
+            <Link component={NextLink} href="#" color="inherit" sx={{ ml: 4 }}>
               お問い合わせ
-            </MuiLink>
+            </Link>
           </Box>
         </Box>
         <Box sx={{ textAlign: 'center', mt: 2 }}>
