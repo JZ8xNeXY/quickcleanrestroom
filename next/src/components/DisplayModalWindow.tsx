@@ -9,6 +9,11 @@ interface DisplayModalWindowProps {
   name: string
   address: string
   content: string
+  nursingRoom?: boolean
+  anyoneToilet?: boolean
+  diaperChangingStation?: boolean
+  powderCorner?: boolean
+  strollerAccessible?: boolean
 }
 
 const modalStyle = {
@@ -58,12 +63,38 @@ const changeFontSize = (name: string) => {
   }
 }
 
+const facilityStyle = {
+  maxWidth: '150px',
+  pl: 1,
+  pr: 1,
+  ml: 2,
+  mt: 1,
+  border: '1px solid black',
+  borderRadius: '5px',
+}
+
+const buttonStyle = {
+  height: '40px',
+  color: '#FFFFFF',
+  fontWeight: 'bold',
+  bgcolor: '#4CAF50',
+  borderRadius: '10px',
+  pt: 2,
+  pb: 2,
+  mt: 2,
+}
+
 const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
   openModalWindow,
   closeModalWindow,
   name,
   address,
   content,
+  nursingRoom,
+  anyoneToilet,
+  diaperChangingStation,
+  powderCorner,
+  strollerAccessible,
 }) => (
   <Modal
     open={openModalWindow}
@@ -93,7 +124,7 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
         }}
       >
         <Image
-          src="/point1.png"
+          src="/restroom2.png" //FIX S3から読み込みする予定
           alt="restroom"
           width={200}
           height={200}
@@ -116,54 +147,53 @@ const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'right' }}>
-        <Button
-          sx={{
-            height: '40px',
-            color: '#FFFFFF',
-            fontWeight: 'bold',
-            bgcolor: '#4CAF50',
-            pt: 2,
-            pb: 2,
-            mt: 2,
-          }}
-          onClick={closeModalWindow}
-        >
+        <Button sx={buttonStyle} onClick={closeModalWindow}>
           編集する
         </Button>
       </Box>
       <Box sx={{ mt: 0 }}>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
           住所
         </Typography>
         <Typography sx={{ ml: 2 }}>{address}</Typography>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
           コメント
         </Typography>
         <Typography sx={{ ml: 2 }}>{content}</Typography>
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
           設備情報
         </Typography>
-        <Typography sx={{ ml: 2 }}>パウダーコーナー</Typography>
-        <Typography variant="h6" fontWeight="bold">
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'left',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+          }}
+        >
+          {nursingRoom && <Typography sx={facilityStyle}>授乳室</Typography>}
+          {anyoneToilet && (
+            <Typography sx={facilityStyle}>誰でもトイレ</Typography>
+          )}
+          {diaperChangingStation && (
+            <Typography sx={facilityStyle}>オムツ交換代</Typography>
+          )}
+          {powderCorner && (
+            <Typography sx={facilityStyle}>パウダーコーナー</Typography>
+          )}
+          {strollerAccessible && (
+            <Typography sx={facilityStyle}>ベビーカー可</Typography>
+          )}
+        </Box>
+        <Typography variant="h6" sx={{ fontWeight: 'bold', mt: 1 }}>
           レビュー
         </Typography>
         <Typography sx={{ ml: 2 }}>
-          平均4.7 ⭐️⭐️⭐️⭐️⭐️ (3件の評価をみる)
+          平均4.7 ⭐️⭐️⭐️⭐️⭐️ ( <u>3件の評価をみる</u> )
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button
-          sx={{
-            height: '40px',
-            color: '#FFFFFF',
-            fontWeight: 'bold',
-            bgcolor: '#4CAF50',
-            pt: 2,
-            pb: 2,
-            mt: 2,
-          }}
-          onClick={closeModalWindow}
-        >
+        <Button sx={buttonStyle} onClick={closeModalWindow}>
           評価する
         </Button>
       </Box>
