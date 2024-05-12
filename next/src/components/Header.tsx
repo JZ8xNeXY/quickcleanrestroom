@@ -1,29 +1,62 @@
-import { AppBar, Box, Button, Container } from '@mui/material'
+import MenuIcon from '@mui/icons-material/Menu'
+import {
+  AppBar,
+  Box,
+  Container,
+  Toolbar,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+} from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
-
-const headerButtonStyle = {
-  textTransform: 'none',
-  fontSize: {
-    xs: 14,
-    sm: 14,
-    md: 18,
-    lg: 18,
-    xl: 18,
-  },
-  borderRadius: 2,
-  boxShadow: 'none',
-  border: 'none',
-  ml: {
-    xs: 1,
-    sm: 2,
-    md: 3,
-    lg: 5,
-    xl: 5,
-  },
-}
+import { useState } from 'react'
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (event.type === 'keydown') {
+        const keyboardEvent = event as React.KeyboardEvent
+        if (keyboardEvent.key === 'Tab' || keyboardEvent.key === 'Shift') {
+          return
+        }
+      }
+      setIsOpen(open)
+    }
+
+  const headerSideMenuItems = [
+    { text: '紹介', href: '/' },
+    { text: '新規登録', href: '/' },
+    { text: 'ログイン', href: '/' },
+    { text: 'お問い合わせ', href: '/' },
+    { text: '利用規約', href: '/' },
+    { text: 'プライバシーポリシー', href: '/' },
+  ]
+
+  const list = () => (
+    <div
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {headerSideMenuItems.map(({ text, href }) => (
+          <ListItem key={text}>
+            <Link href={href} passHref key={text}>
+              <ListItem>
+                <ListItemText primary={text} />
+              </ListItem>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  )
+
   return (
     <AppBar
       position="static"
@@ -38,10 +71,31 @@ const Header = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
+            justifyContent: 'left',
             alignItems: 'center',
           }}
         >
+          <Box>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Toolbar>
+            <Drawer
+              anchor="left"
+              open={isOpen}
+              onClose={() => {
+                toggleDrawer(false)
+              }}
+            >
+              {list()}
+            </Drawer>
+          </Box>
           <Box>
             <Link href="/">
               <Box
@@ -70,17 +124,6 @@ const Header = () => {
                 />
               </Box>
             </Link>
-          </Box>
-          <Box>
-            <Button color="secondary" variant="outlined" sx={headerButtonStyle}>
-              紹介
-            </Button>
-            <Button color="secondary" variant="outlined" sx={headerButtonStyle}>
-              新規登録
-            </Button>
-            <Button color="secondary" variant="outlined" sx={headerButtonStyle}>
-              ログイン
-            </Button>
           </Box>
         </Box>
       </Container>

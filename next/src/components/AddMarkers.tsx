@@ -20,6 +20,11 @@ interface Restroom {
   latitude: number
   longitude: number
   createdAt: string
+  nursingRoom: boolean
+  anyoneToilet: boolean
+  diaperChangingStation: boolean
+  powderCorner: boolean
+  strollerAccessible: boolean
 }
 
 const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
@@ -38,6 +43,14 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
     useState<number>()
   const [selectedRestroomLongitude, setSelectedRestroomLongitude] =
     useState<number>()
+  const [selectedNursingRoom, setSelectedNursingRoom] = useState<boolean>()
+  const [selectedAnyoneToilet, setSelectedAnyoneToilet] = useState<boolean>()
+  const [selectedDiaperChangingStation, setSelectedDiaperChangingStation] =
+    useState<boolean>()
+  const [selectedPowderCorner, setSelectedPowderCorner] = useState<boolean>()
+  const [selectedStrollerAccessible, setSelectedStrollerAccessible] =
+    useState<boolean>()
+
   const [currentUserPos, setCurrentUserPos] = useState<{
     lat: number
     lng: number
@@ -55,6 +68,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
     const addMarkers = async () => {
       if (map && data) {
         const restrooms: Restroom[] = data ? camelcaseKeys(data) : []
+        console.log(restrooms)
         const { AdvancedMarkerElement } = (await google.maps.importLibrary(
           'marker',
         )) as google.maps.MarkerLibrary
@@ -83,6 +97,11 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
             setSelectedRestroomContent(restroom.content)
             setSelectedRestroomLatitude(restroom.latitude)
             setSelectedRestroomLongitude(restroom.longitude)
+            setSelectedNursingRoom(restroom.nursingRoom)
+            setSelectedAnyoneToilet(restroom.anyoneToilet)
+            setSelectedDiaperChangingStation(restroom.diaperChangingStation)
+            setSelectedPowderCorner(restroom.powderCorner)
+            setSelectedStrollerAccessible(restroom.strollerAccessible)
           })
         })
       }
@@ -119,6 +138,11 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
         name={selectedRestroomName}
         address={selectedRestroomAddress}
         content={selectedRestroomContent}
+        nursingRoom={selectedNursingRoom}
+        anyoneToilet={selectedAnyoneToilet}
+        diaperChangingStation={selectedDiaperChangingStation}
+        powderCorner={selectedPowderCorner}
+        strollerAccessible={selectedStrollerAccessible}
       />
       <CalculateAndDisplayRoute
         userPos={currentUserPos}
@@ -142,7 +166,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
             pr: 4,
             mt: 2,
             ':hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.80)',
+              backgroundColor: '#006400',
             },
           }}
         >

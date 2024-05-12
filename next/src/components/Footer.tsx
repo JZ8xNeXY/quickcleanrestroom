@@ -1,5 +1,4 @@
-import { AppBar, Box, Container, Link as MuiLink } from '@mui/material'
-import NextLink from 'next/link'
+import { AppBar, Box, Container } from '@mui/material'
 
 const Footer = () => {
   return (
@@ -19,36 +18,7 @@ const Footer = () => {
             justifyContent: 'space-between',
             alignItems: 'center',
           }}
-        >
-          <Box>
-            <MuiLink
-              component={NextLink}
-              href="#"
-              color="inherit"
-              sx={{ ml: 4 }}
-            >
-              利用規約
-            </MuiLink>
-
-            <MuiLink
-              component={NextLink}
-              href="#"
-              color="inherit"
-              sx={{ ml: 4 }}
-            >
-              プライバシーポリシー
-            </MuiLink>
-
-            <MuiLink
-              component={NextLink}
-              href="#"
-              color="inherit"
-              sx={{ ml: 4 }}
-            >
-              お問い合わせ
-            </MuiLink>
-          </Box>
-        </Box>
+        ></Box>
         <Box sx={{ textAlign: 'center', mt: 2 }}>
           Copyright © Quick Clean Restroom Map All rights reserved.
         </Box>
