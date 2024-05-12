@@ -166,7 +166,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
             pr: 4,
             mt: 2,
             ':hover': {
-              backgroundColor: 'rgba(0, 0, 0, 0.80)',
+              backgroundColor: '#006400',
             },
           }}
         >

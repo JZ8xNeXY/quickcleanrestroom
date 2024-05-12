@@ -15,19 +15,20 @@ import Link from 'next/link'
 import { useState } from 'react'
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const toggleDrawer = (open) => (event) => {
-    if (
-      event.type === 'keydown' &&
-      (event.key === 'Tab' || event.key === 'Shift')
-    ) {
-      return
+  const toggleDrawer =
+    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+      if (event.type === 'keydown') {
+        const keyboardEvent = event as React.KeyboardEvent
+        if (keyboardEvent.key === 'Tab' || keyboardEvent.key === 'Shift') {
+          return
+        }
+      }
+      setIsOpen(open)
     }
-    setIsOpen(open)
-  }
 
-  const menuItems = [
+  const headerSideMenuItems = [
     { text: '紹介', href: '/' },
     { text: '新規登録', href: '/' },
     { text: 'ログイン', href: '/' },
@@ -43,7 +44,7 @@ const Header = () => {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-        {menuItems.map(({ text, href }) => (
+        {headerSideMenuItems.map(({ text, href }) => (
           <ListItem key={text}>
             <Link href={href} passHref key={text}>
               <ListItem>
@@ -85,7 +86,13 @@ const Header = () => {
                 <MenuIcon />
               </IconButton>
             </Toolbar>
-            <Drawer anchor="left" open={isOpen} onClose={toggleDrawer(false)}>
+            <Drawer
+              anchor="left"
+              open={isOpen}
+              onClose={() => {
+                toggleDrawer(false)
+              }}
+            >
               {list()}
             </Drawer>
           </Box>

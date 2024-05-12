@@ -82,6 +82,9 @@ const buttonStyle = {
   pt: 2,
   pb: 2,
   mt: 2,
+  ':hover': {
+    backgroundColor: '#006400',
+  },
 }
 
 const DisplayModalWindow: React.FC<DisplayModalWindowProps> = ({

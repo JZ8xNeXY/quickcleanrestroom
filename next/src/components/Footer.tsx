@@ -1,5 +1,4 @@
-import { AppBar, Box, Container, Link } from '@mui/material'
-import NextLink from 'next/link'
+import { AppBar, Box, Container } from '@mui/material'
 
 const Footer = () => {
   return (
