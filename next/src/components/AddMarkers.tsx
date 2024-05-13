@@ -68,7 +68,7 @@ const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
     const addMarkers = async () => {
       if (map && data) {
         const restrooms: Restroom[] = data ? camelcaseKeys(data) : []
-        console.log(restrooms)
+
         const { AdvancedMarkerElement } = (await google.maps.importLibrary(
           'marker',
         )) as google.maps.MarkerLibrary

@@ -1,3 +1,4 @@
+import CloseIcon from '@mui/icons-material/Close'
 import MenuIcon from '@mui/icons-material/Menu'
 import {
   AppBar,
@@ -17,7 +18,7 @@ import { useState } from 'react'
 const Header = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const toggleDrawer =
+  const openDrawer =
     (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
       if (event.type === 'keydown') {
         const keyboardEvent = event as React.KeyboardEvent
@@ -28,7 +29,11 @@ const Header = () => {
       setIsOpen(open)
     }
 
-  const headerSideMenuItems = [
+  const closeDrawer = () => {
+    setIsOpen(!isOpen)
+  }
+
+  const DrawerMenuItems = [
     { text: '紹介', href: '/' },
     { text: '新規登録', href: '/' },
     { text: 'ログイン', href: '/' },
@@ -38,23 +43,24 @@ const Header = () => {
   ]
 
   const list = () => (
-    <div
+    <Box
       role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
+      onClick={openDrawer(false)}
+      onKeyDown={openDrawer(false)}
     >
+      <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+        <CloseIcon sx={{ m: 1 }} onClick={closeDrawer} />
+      </Box>
       <List>
-        {headerSideMenuItems.map(({ text, href }) => (
-          <ListItem key={text}>
-            <Link href={href} passHref key={text}>
-              <ListItem>
-                <ListItemText primary={text} />
-              </ListItem>
-            </Link>
-          </ListItem>
+        {DrawerMenuItems.map(({ text, href }) => (
+          <Link href={href} passHref key={text}>
+            <ListItem>
+              <ListItemText primary={text} />
+            </ListItem>
+          </Link>
         ))}
       </List>
-    </div>
+    </Box>
   )
 
   return (
@@ -81,7 +87,7 @@ const Header = () => {
                 edge="start"
                 color="inherit"
                 aria-label="menu"
-                onClick={toggleDrawer(true)}
+                onClick={openDrawer(true)}
               >
                 <MenuIcon />
               </IconButton>
@@ -90,7 +96,7 @@ const Header = () => {
               anchor="left"
               open={isOpen}
               onClose={() => {
-                toggleDrawer(false)
+                openDrawer(false)
               }}
             >
               {list()}
