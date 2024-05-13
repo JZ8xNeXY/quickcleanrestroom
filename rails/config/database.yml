@@ -16,3 +16,8 @@ test:
   host: db
   database: quickcleanrestroom_test
   password: password
+
+production:
+   <<: *default
+   database: quickcleanrestroom_prouction
+   url: <%= Rails.application.credentials.production.database_url %>
