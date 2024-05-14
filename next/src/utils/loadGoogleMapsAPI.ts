@@ -1,54 +1,40 @@
 import { initMap } from './initMap'
 
 interface GoogleMapsConfig {
-  key: string | undefined
+  key: string
   v: string
 }
 
+//GoogleMapsAPIのマニュアルで公表されている式を修正
 export const loadGoogleMapsAPI = (
   setMap: React.Dispatch<React.SetStateAction<google.maps.Map | null>>,
 ) => {
-  ;((g: GoogleMapsConfig) => {
-    let h: Promise<void>, a, k
-    const p = 'The Google Maps JavaScript API'
-    const c = 'google'
-    const l = 'importLibrary'
-    const q = '__ib__'
-    const m = document
-    let b = window
-    b = b[c] || (b[c] = {})
-    const d = b.maps || (b.maps = {}),
-      e = new URLSearchParams(),
-      u = () =>
-        h ||
-        (h = new Promise(
-          // eslint-disable-next-line no-async-promise-executor
-          async (f, n) => {
-            await (a = m.createElement('script'))
-            e.set('libraries', +'')
-            for (k in g)
-              e.set(
-                k.replace(/[A-Z]/g, (t) => '_' + t[0].toLowerCase()),
-                g[k],
-              )
-            e.set('callback', c + '.maps.' + q)
-            a.src = `https://maps.${c}apis.com/maps/api/js?` + e
-            d[q] = f
-            a.onerror = () => (h = n(Error(p + ' could not load.')))
-            a.nonce = m.querySelector('script[nonce]')?.nonce || ''
-            m.head.append(a)
-          },
-        ))
-    if (!d[l]) {
-      d[l] = (f, ...n) => u().then(() => d[l](f, ...n))
-      // APIのロードを試みる
-      return u().then(() => {
-        //マップを表示する
-        initMap(setMap)
-      })
-    }
-  })({
-    key: process.env.GOOGLE_MAPS_API_KEY,
+  // Google Maps APIの設定
+  const config: GoogleMapsConfig = {
+    key: process.env.GOOGLE_MAPS_API_KEY || '',
     v: 'beta',
-  })
+  }
+
+  // Google Maps APIのスクリプトを非同期でロードする関数
+  const loadScript = (src: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = src
+      script.onload = () => resolve()
+      script.onerror = () => reject(new Error('Script load error'))
+      document.head.appendChild(script)
+    })
+  }
+
+  // Google Maps APIのスクリプトURLを作成
+  const scriptSrc = `https://maps.googleapis.com/maps/api/js?key=${config.key}&v=${config.v}`
+
+  // スクリプトをロードして地図を初期化
+  loadScript(scriptSrc)
+    .then(() => {
+      initMap(setMap) // スクリプトのロードが成功したら地図を初期化
+    })
+    .catch((error) => {
+      console.error(error) // エラーが発生したらログに出力
+    })
 }

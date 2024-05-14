@@ -28,7 +28,8 @@ interface Restroom {
 }
 
 const AddMarkers: NextPage<AddMarkersProps> = ({ map }) => {
-  const url = 'http://localhost:3000/api/v1/posts'
+  // const url = 'http://localhost:3000/api/v1/posts'
+  const url = 'https://backend.quickcleanrestrooms.com/api/v1/posts'
   const { data, error } = useSWR(url, fetcher, { revalidateOnFocus: false })
 
   const [openModalWindow, setOpenModalWindow] = useState(false)
