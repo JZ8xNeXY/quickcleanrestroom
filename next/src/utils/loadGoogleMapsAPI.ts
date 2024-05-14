@@ -6,7 +6,7 @@ interface GoogleMapsConfig {
 }
 
 //GoogleMapsAPIのマニュアルで公表されている式を修正
-export const loadGoogleMapsApi = (
+export const loadGoogleMapsAPI = (
   setMap: React.Dispatch<React.SetStateAction<google.maps.Map | null>>,
 ) => {
   // Google Maps APIの設定
